@@ -1,15 +1,17 @@
-import axios from 'axios';
+
 
 export const handler = async (event, context) => {
   try {
     // External API call to get server's public IP
-    const response = await axios.get('https://api.ipify.org?format=json');
+       const response = await fetch('https://api.ipify.org?format=json');
+
+       const data = await response.json();
 
     return {
       statusCode: 200,
       body: JSON.stringify({
         message: 'Server IP fetched successfully!',
-        ip: response.data.ip,
+        ip: data.ip,
       }),
     };
   } catch (error) {
